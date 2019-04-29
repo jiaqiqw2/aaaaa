@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,6 +19,8 @@ import org.json.JSONObject;
  * Main class for our UI design lab.
  */
 public final class MainActivity extends AppCompatActivity {
+
+
     /** Default logging tag for messages from the main activity. */
     private static final String TAG = "Lab12:Main";
 
