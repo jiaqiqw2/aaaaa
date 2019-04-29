@@ -4,12 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 
 import org.json.JSONException;
@@ -26,6 +30,8 @@ public final class MainActivity extends AppCompatActivity {
 
     /** Request queue for our API requests. */
     private static RequestQueue requestQueue;
+    /** Refresh button */
+    private Button click;
 
     /**
      * Run when this activity comes to the foreground.
@@ -36,12 +42,38 @@ public final class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Set up the queue for our API requests
-        requestQueue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_main);
 
-        startAPICall("192.17.96.8");
+        click = (Button) findViewById(R.id.button);
+        click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                String r1 = "";
+                String r2 = "";
+                String r3 = "";
+                String r5 = "";
+                String r6 = "";
+                String r7 = "";
+                String r8 = "";
+                GetRate process = new GetRate();
+                process.doInBackground(r1, r2, r3, r5, r6, r7, r8);
+                TextView t1 = (TextView) findViewById(R.id.textView5);
+                t1.setText(r1);
+                TextView t2 = (TextView) findViewById(R.id.textView8);
+                t1.setText(r2);
+                TextView t3 = (TextView) findViewById(R.id.textView11);
+                t1.setText(r3);
+                TextView t5 = (TextView) findViewById(R.id.textView17);
+                t1.setText(r5);
+                TextView t6 = (TextView) findViewById(R.id.textView20);
+                t1.setText(r6);
+                TextView t7 = (TextView) findViewById(R.id.textView23);
+                t1.setText(r7);
+                TextView t8 = (TextView) findViewById(R.id.textView26);
+                t1.setText(r8);
+            }
+        });
     }
 
     /**
