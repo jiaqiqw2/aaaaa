@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,15 +22,45 @@ import com.android.volley.toolbox.Volley;
  * Main class for our UI design lab.
  */
 public final class MainActivity extends AppCompatActivity {
+    /**
+     * text.
+     */
     private TextView text1;
+    /**
+     * text.
+     */
     private TextView text2;
+    /**
+     * text.
+     */
     private TextView text3;
+    /**
+     * text.
+     */
     private TextView text4;
+    /**
+     * text.
+     */
     private TextView text5;
+    /**
+     * text.
+     */
     private TextView text6;
+    /**
+     * text.
+     */
     private TextView text7;
+    /**
+     * text.
+     */
     private TextView text8;
+    /**
+     * text.
+     */
     private TextView text99;
+    /**
+     * text.
+     */
     private RequestQueue mQueue;
     /**
      * @param savedInstanceState unused
@@ -40,15 +69,15 @@ public final class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        text1 = (TextView) findViewById(R.id.textView5);
-        text2 = (TextView) findViewById(R.id.textView8);
-        text3 = (TextView) findViewById(R.id.textView11);
-        text4 = (TextView) findViewById(R.id.textView14);
-        text5 = (TextView) findViewById(R.id.textView17);
-        text6 = (TextView) findViewById(R.id.textView20);
-        text7 = (TextView) findViewById(R.id.textView23);
-        text8 = (TextView) findViewById(R.id.textView26);
-        text99 = (TextView) findViewById(R.id.textView99);
+        text1 = findViewById(R.id.textView5);
+        text2 = findViewById(R.id.textView8);
+        text3 = findViewById(R.id.textView11);
+        text4 = findViewById(R.id.textView14);
+        text5 = findViewById(R.id.textView17);
+        text6 = findViewById(R.id.textView20);
+        text7 = findViewById(R.id.textView23);
+        text8 = findViewById(R.id.textView26);
+        text99 = findViewById(R.id.textView99);
         Button click = findViewById(R.id.button);
         mQueue = Volley.newRequestQueue(this);
 
