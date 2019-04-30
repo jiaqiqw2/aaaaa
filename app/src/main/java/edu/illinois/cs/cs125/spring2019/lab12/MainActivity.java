@@ -2,13 +2,12 @@ package edu.illinois.cs.cs125.spring2019.lab12;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
+import org.json.JSONArray;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,111 +17,89 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.android.volley.toolbox.Volley;
 
 /**
  * Main class for our UI design lab.
  */
 public final class MainActivity extends AppCompatActivity {
-
-
-    /** Default logging tag for messages from the main activity. */
-    private static final String TAG = "Lab12:Main";
-
-    /** Request queue for our API requests. */
-    private static RequestQueue requestQueue;
-    /** Refresh button */
-    private Button click;
-
+    private TextView text1;
+    private TextView text2;
+    private TextView text3;
+    private TextView text4;
+    private TextView text5;
+    private TextView text6;
+    private TextView text7;
+    private TextView text8;
+    private TextView text99;
+    private RequestQueue mQueue;
     /**
-     * Run when this activity comes to the foreground.
-     *
      * @param savedInstanceState unused
      */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
+        text1 = (TextView) findViewById(R.id.textView5);
+        text2 = (TextView) findViewById(R.id.textView8);
+        text3 = (TextView) findViewById(R.id.textView11);
+        text4 = (TextView) findViewById(R.id.textView14);
+        text5 = (TextView) findViewById(R.id.textView17);
+        text6 = (TextView) findViewById(R.id.textView20);
+        text7 = (TextView) findViewById(R.id.textView23);
+        text8 = (TextView) findViewById(R.id.textView26);
+        text99 = (TextView) findViewById(R.id.textView99);
+        Button click = findViewById(R.id.button);
+        mQueue = Volley.newRequestQueue(this);
 
-        click = (Button) findViewById(R.id.button);
         click.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view) {
-                String r1 = "";
-                String r2 = "";
-                String r3 = "";
-                String r5 = "";
-                String r6 = "";
-                String r7 = "";
-                String r8 = "";
-                GetRate process = new GetRate();
-                process.doInBackground(r1, r2, r3, r5, r6, r7, r8);
-                TextView t1 = (TextView) findViewById(R.id.textView5);
-                t1.setText(r1);
-                TextView t2 = (TextView) findViewById(R.id.textView8);
-                t1.setText(r2);
-                TextView t3 = (TextView) findViewById(R.id.textView11);
-                t1.setText(r3);
-                TextView t5 = (TextView) findViewById(R.id.textView17);
-                t1.setText(r5);
-                TextView t6 = (TextView) findViewById(R.id.textView20);
-                t1.setText(r6);
-                TextView t7 = (TextView) findViewById(R.id.textView23);
-                t1.setText(r7);
-                TextView t8 = (TextView) findViewById(R.id.textView26);
-                t1.setText(r8);
+            public void onClick(View view) {
+                jsonParse();
             }
         });
     }
+    private void jsonParse() {
 
-    /**
-     * Run when this activity is no longer visible.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+        String url = "http://data.fixer.io/api/latest?access_key=4d9839a578aed279092066bcb8addd72";
 
-    /**
-     * Make a call to the IP geolocation API.
-     *
-     * @param ipAddress IP address to look up
-     */
-    void startAPICall(final String ipAddress) {
-        try {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                    Request.Method.GET,
-                    "https://ipinfo.io/" + ipAddress + "/json",
-                    null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(final JSONObject response) {
-                            apiCallDone(response);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jo = response;
+                            JSONObject jr = jo.getJSONObject("rates");
+                            Double a1 = jr.getDouble("AUD");
+                            Double a2 = jr.getDouble("CAD");
+                            Double a3 = jr.getDouble("CNY");
+                            Double a4 = jr.getDouble("EUR");
+                            Double a5 = jr.getDouble("GBP");
+                            Double a6 = jr.getDouble("HKD");
+                            Double a7 = jr.getDouble("JPY");
+                            Double a8 = jr.getDouble("USD");
+                            int a99 = jo.getInt("timestamp");
+                            text1.setText(String.valueOf(a1));
+                            text2.setText(String.valueOf(a2));
+                            text3.setText(String.valueOf(a3));
+                            text4.setText(String.valueOf(a4));
+                            text5.setText(String.valueOf(a5));
+                            text6.setText(String.valueOf(a6));
+                            text7.setText(String.valueOf(a7));
+                            text8.setText(String.valueOf(a8));
+
+                            text99.append(String.valueOf(a99));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(final VolleyError error) {
-                            Log.e(TAG, error.toString());
-                        }
-                    });
-            jsonObjectRequest.setShouldCache(false);
-            requestQueue.add(jsonObjectRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
 
-    /**
-     * Handle the response from our IP geolocation API.
-     *
-     * @param response response from our IP geolocation API.
-     */
-    void apiCallDone(final JSONObject response) {
-        try {
-            Log.d(TAG, response.toString(2));
-            // Example of how to pull a field off the returned JSON object
-            Log.i(TAG, response.get("hostname").toString());
-        } catch (JSONException ignored) { }
+        mQueue.add(request);
     }
 }
