@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Click the button on top right corner to get updated data from fixer.io."
+            android:text="Click the button on top right corner to get updated data from fixer.io. The data is updated about every 15 mins."
             android:textColor="#b0e2ff" />
 
     </LinearLayout>
@@ -61,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Updated time (Unix Time Stamp):"
+            android:text="The latest update time (Unix Time Stamp):"
             android:textColor="#b0e2ff" />
 
     </LinearLayout>
