@@ -97,8 +97,7 @@ public final class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject jo = response;
-                            JSONObject jr = jo.getJSONObject("rates");
+                            JSONObject jr = response.getJSONObject("rates");
                             Double a1 = jr.getDouble("AUD");
                             Double a2 = jr.getDouble("CAD");
                             Double a3 = jr.getDouble("CNY");
@@ -107,7 +106,7 @@ public final class MainActivity extends AppCompatActivity {
                             Double a6 = jr.getDouble("HKD");
                             Double a7 = jr.getDouble("JPY");
                             Double a8 = jr.getDouble("USD");
-                            int a99 = jo.getInt("timestamp");
+                            int a99 = response.getInt("timestamp");
                             text1.setText(String.valueOf(a1));
                             text2.setText(String.valueOf(a2));
                             text3.setText(String.valueOf(a3));
@@ -123,11 +122,11 @@ public final class MainActivity extends AppCompatActivity {
                         }
                     }
                 }, new Response.ErrorListener() {
-            @Override
+                    @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
+                        error.printStackTrace();
+                    }
+                });
 
         mQueue.add(request);
     }
