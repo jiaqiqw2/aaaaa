@@ -116,7 +116,7 @@ public final class MainActivity extends AppCompatActivity {
                             text7.setText(String.valueOf(a7));
                             text8.setText(String.valueOf(a8));
 
-                            text99.append(String.valueOf(a99));
+                            text99.setText("Updated time (Unix Time Stamp):" + String.valueOf(a99));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
